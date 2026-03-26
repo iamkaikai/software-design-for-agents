@@ -23,7 +23,7 @@ Interfaces that mirror a single use case tend to accrete special-case methods an
 - "Somewhat general-purpose" does not mean guessing at every future need. Speculative abstraction creates its own complexity.
 - A general interface still has to be easy for today's caller to use; generic ceremony is not a win.
 - The complexity often moves from specialized convenience methods into more explicit caller composition.
-- Ask for clarification when pressure to make an API "general" is really pressure to anticipate unknown future requirements without evidence.
+- Clarify the trade-off when pressure to make an API "general" is really pressure to anticipate unknown future requirements without evidence.
 
 ## When Context Changes the Answer
 

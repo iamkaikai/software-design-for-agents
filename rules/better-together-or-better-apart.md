@@ -23,7 +23,7 @@ Every split creates new interfaces, more places to look, and more chances for du
 - Smaller is not automatically simpler. Short methods and extra classes can make a system harder to understand if they fragment one coherent operation.
 - Larger is not automatically deeper. Joining unrelated concerns can create one big module with no clear abstraction.
 - This rule shifts judgment from line count to relationship analysis: what knowledge is shared, what must change together, and what callers need to know.
-- Ask for clarification when a proposed split or join is justified mostly by style preference, file size, or team convention rather than by information hiding and interface simplicity.
+- Clarify the decision when a proposed split or join is justified mostly by style preference, file size, or team convention rather than by information hiding and interface simplicity.
 
 ## When Context Changes the Answer
 

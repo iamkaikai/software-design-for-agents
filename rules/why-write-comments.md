@@ -23,7 +23,7 @@ Good abstractions depend on more than signatures and control flow. Without comme
 - Comments cost time to write and maintain, so they must carry information that readers cannot cheaply recover elsewhere.
 - Commenting everything creates noise; commenting nothing pushes design knowledge into guesswork and archaeology.
 - The understanding moves from private author knowledge into shared documentation, which only helps if the comments stay near the code and stay current.
-- Ask for clarification when the behavior, rationale, or boundary of an interface cannot be expressed clearly enough in code and the intended contract is still unresolved.
+- Clarify the contract when the behavior, rationale, or boundary of an interface cannot be expressed clearly enough in code and the intended contract is still unresolved.
 
 ## When Context Changes the Answer
 

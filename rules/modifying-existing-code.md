@@ -23,7 +23,7 @@ Most software work happens in existing systems. If each change only patches the 
 - Not every modification warrants a large refactor. The right move is the smallest design improvement that keeps the new change honest.
 - Cleaning up one area can expose more debt than fits the current change budget; choose leverage, not perfectionism.
 - This rule moves some effort from feature delivery into structural maintenance, which is worthwhile only when it genuinely lowers future cost.
-- Ask for clarification when a requested patch clearly conflicts with the existing design and the expected scope of cleanup is materially larger than the stated change.
+- Clarify expectations when a requested patch clearly conflicts with the existing design and the expected scope of cleanup is materially larger than the stated change.
 
 ## When Context Changes the Answer
 

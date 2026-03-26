@@ -23,7 +23,7 @@ Implementation complexity is paid once. Interface complexity is paid by every ca
 - Complexity should move downward only when the module can still expose honest, predictable semantics.
 - Pulling too much inward can hide important distinctions, operational costs, or rare-but-critical choices that callers actually need to control.
 - The complexity does not disappear; it moves into defaults, policies, and internal branching that must still be designed well.
-- Ask for clarification when the proposed simplification removes a caller choice that may matter for correctness, visibility, or performance.
+- Clarify the trade-off when the proposed simplification removes a caller choice that may matter for correctness, visibility, or performance.
 
 ## When Context Changes the Answer
 

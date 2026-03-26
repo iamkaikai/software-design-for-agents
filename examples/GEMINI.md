@@ -80,11 +80,24 @@ Center the design on the distinctions, guarantees, and constraints that matter m
 - Refactoring: focus first on rules 1, 3, 4, 6, 8, 15, 16, 20.
 - Debugging: focus first on rules 1, 4, 9, 15, 16, 17, 20.
 
+## Supplemental Architecture Rules
+
+For service boundaries, deployment topology, distributed data, compatibility, and operational design, also read the supplemental architecture mistake patterns in `rules/`:
+
+- `Mistaking Distribution for Clean Separation`
+- `Mistaking the Org Chart for the Architecture`
+- `Mistaking "Better Architecture" for a Shared Priority`
+- `Letting Architectural Context Evaporate`
+- `Mistaking the Written Contract for the Real Interface`
+- `Mistaking Abstraction for Removal of Reality`
+- `Mistaking Shared Data for Harmless Convenience`
+- `Treating Operability as Cleanup Work`
+
 ## How To Use The Rules
 
 - Read the trade-off sections, not just the headings.
 - Ask what complexity the rule removes, what complexity it moves elsewhere, and what understanding still remains necessary.
-- If the correct semantics are ambiguous, ask for clarification before implementing the choice.
+- If an unresolved ambiguity would materially change the design or semantics, clarify it before implementing the choice.
 - Prefer clear contracts over hidden cleverness.
 
 ## Red Flags

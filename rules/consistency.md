@@ -23,7 +23,7 @@ Consistency reduces the amount of new information a reader must learn. Once one 
 - Consistency is a tool, not a reason to preserve a bad design forever.
 - Blindly copying an existing pattern spreads defects just as efficiently as it spreads clarity.
 - The simplification comes from reusing expectations; if the old expectation is wrong for the new problem, consistency may hide a needed distinction.
-- Ask for clarification when matching an existing convention would preserve misleading semantics, the wrong abstraction, or an already harmful API shape.
+- Clarify the trade-off when matching an existing convention would preserve misleading semantics, the wrong abstraction, or an already harmful API shape.
 
 ## When Context Changes the Answer
 

@@ -23,7 +23,7 @@ Interfaces are paid for by every caller. A deep module concentrates complexity b
 - Deep does not mean large in every direction. A big interface with many unrelated features is not deep; it is sprawling.
 - A deep abstraction still requires callers to understand its contract, invariants, and failure modes.
 - Sometimes the cheapest honest interface is narrow because the underlying behavior truly differs across use cases.
-- Ask for clarification when a module boundary is being defined around team ownership or file layout rather than around a coherent abstraction.
+- Clarify the boundary when a module split is being defined around team ownership or file layout rather than around a coherent abstraction.
 
 ## When Context Changes the Answer
 

@@ -1,6 +1,6 @@
 # Software Design for Agents
 
-Software design heuristics for AI coding agents, derived from *A Philosophy of Software Design* by John Ousterhout and adapted for real engineering trade-offs.
+Software design heuristics for AI coding agents, derived from *A Philosophy of Software Design* by John Ousterhout and extended with supplemental architecture rules for broader system design trade-offs.
 
 Works with Claude, OpenAI Codex, Gemini, Cursor, Aider, and other coding agents.
 
@@ -62,7 +62,7 @@ Before reviewing code, read `profiles/review.md`.
 ## What's Inside
 
 ```text
-rules/              # 20 rule files + chapter coverage map
+rules/              # 20 book-derived rules + 8 supplemental architecture rules
   _index.md         # Master list of rules
   _coverage.md      # Chapter 1-21 coverage map
   ...
@@ -95,6 +95,26 @@ source/             # Book source text used for coverage and refinement
 19. Designing for Performance
 20. Decide What Matters
 
+## Supplemental Architecture Heuristics
+
+These are not additional book chapters. They are complementary architecture mistake patterns. Each one is written to reduce overfitting:
+
+- the tempting instinct
+- why it looks reasonable
+- what goes wrong
+- the better decision pattern
+
+Current supplemental mistake patterns:
+
+1. Mistaking Distribution for Clean Separation
+2. Mistaking the Org Chart for the Architecture
+3. Mistaking "Better Architecture" for a Shared Priority
+4. Letting Architectural Context Evaporate
+5. Mistaking the Written Contract for the Real Interface
+6. Mistaking Abstraction for Removal of Reality
+7. Mistaking Shared Data for Harmless Convenience
+8. Treating Operability as Cleanup Work
+
 ## Platform Guide
 
 | Platform | File to use | Where to put it |
@@ -121,6 +141,10 @@ Each rule file is intentionally structured around trade-offs:
 - `Examples`: a helpful use and a backfire case
 
 If a rule and the context disagree, the agent should reason from the trade-offs, not blindly follow the rule heading.
+
+Not every ambiguity should trigger a pause. Use the rules to surface boundary conditions and ask questions only when the unresolved ambiguity would materially change the design, semantics, or architectural trade-off.
+
+For architecture-level work across services, deployment boundaries, data ownership, or operational design, also consult the supplemental architecture mistake patterns listed in [rules/_index.md](/Users/kyle/Desktop/software-design-for-agents/rules/_index.md).
 
 ## Contributing
 

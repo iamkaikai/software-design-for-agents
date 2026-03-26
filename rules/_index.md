@@ -4,6 +4,7 @@ These rules are context-sensitive design heuristics, not absolute commandments.
 
 Chapter 1 is represented as project framing in the repository docs and synced example files. The public rule set starts at Chapter 2 and now includes explicit coverage for Chapters 9, 12, 20, and 21.
 
+## Core Book-Derived Rules
 
 | #   | Rule                                                  | File                                                                                 | Chapter | Tags                                   |
 | --- | ----------------------------------------------------- | ------------------------------------------------------------------------------------ | ------- | -------------------------------------- |
@@ -28,4 +29,17 @@ Chapter 1 is represented as project framing in the repository docs and synced ex
 | 19  | Designing for Performance                             | [designing-for-performance.md](designing-for-performance.md)                         | 20      | performance, complexity, measurement   |
 | 20  | Decide What Matters                                   | [decide-what-matters.md](decide-what-matters.md)                                     | 21      | prioritization, abstraction, design    |
 
+## Supplemental Architecture Heuristics
 
+These rules are intentionally separate from the 20 book-derived rules. They are written as mistake patterns: tempting instincts, the failure modes they create, and better decision habits to use instead. Most use `Boundary Questions` rather than hard stop-signs so agents do not learn to pause reflexively on every rule.
+
+| Rule | File | Origin | Tags |
+| --- | --- | --- | --- |
+| Mistaking Distribution for Clean Separation | [distribution-has-a-premium.md](distribution-has-a-premium.md) | External | architecture, distributed-systems, tradeoffs |
+| Mistaking the Org Chart for the Architecture | [architecture-must-match-team-boundaries.md](architecture-must-match-team-boundaries.md) | External | architecture, teams, ownership |
+| Mistaking "Better Architecture" for a Shared Priority | [make-quality-trade-offs-explicit.md](make-quality-trade-offs-explicit.md) | External | architecture, quality-attributes, tradeoffs |
+| Letting Architectural Context Evaporate | [record-architectural-decisions.md](record-architectural-decisions.md) | External | architecture, documentation, decisions |
+| Mistaking the Written Contract for the Real Interface | [expect-implicit-interfaces.md](expect-implicit-interfaces.md) | External | architecture, APIs, compatibility |
+| Mistaking Abstraction for Removal of Reality | [design-for-abstraction-leaks.md](design-for-abstraction-leaks.md) | External | architecture, abstractions, reality |
+| Mistaking Shared Data for Harmless Convenience | [own-data-boundaries.md](own-data-boundaries.md) | External | architecture, data, boundaries |
+| Treating Operability as Cleanup Work | [operability-is-part-of-architecture.md](operability-is-part-of-architecture.md) | External | architecture, operability, observability |

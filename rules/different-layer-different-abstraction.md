@@ -23,7 +23,7 @@ When layers have the same abstraction, you pay for extra boundaries without gett
 - Some duplication across layers is acceptable when adapting an external interface, preserving stability, or enforcing policy.
 - A wrapper can be worthwhile if it narrows an unstable dependency or creates a safer contract, even when much of the data still looks similar.
 - The complexity can move into the adapting layer, which is fine if it genuinely protects callers.
-- Ask for clarification when a new layer mostly mirrors an existing API and the value of the extra boundary is not explicit.
+- Clarify the boundary when a new layer mostly mirrors an existing API and the value of the extra boundary is not explicit.
 
 ## When Context Changes the Answer
 

@@ -23,7 +23,7 @@ Readers build mental models through names before they inspect implementations. A
 - Precision matters more than brevity, but names should still fit their scope and frequency of use.
 - Long names do not automatically help if they mix multiple concepts or encode too much incidental detail.
 - Naming cannot rescue a confused abstraction; sometimes the hard part is not the word choice but the design boundary itself.
-- Ask for clarification when two plausible names imply different semantics, lifecycles, or ownership models and the underlying concept is not yet settled.
+- Clarify the underlying concept when two plausible names imply different semantics, lifecycles, or ownership models and the abstraction is not yet settled.
 
 ## When Context Changes the Answer
 

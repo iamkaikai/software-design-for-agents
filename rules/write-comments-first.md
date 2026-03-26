@@ -23,7 +23,7 @@ Trying to explain an interface in plain language exposes fuzzy boundaries, overl
 - Early comments are sketches; they must be kept aligned with the implementation as the design evolves.
 - Not every private helper needs full interface documentation before coding.
 - The value comes from clarifying important boundaries, not from ritualistically writing comments for every trivial line of code.
-- Ask for clarification when you cannot write a short honest description of behavior without making unresolved semantic choices.
+- Clarify the semantics when you cannot write a short honest description of behavior without making unresolved choices.
 
 ## When Context Changes the Answer
 

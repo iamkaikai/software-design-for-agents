@@ -36,4 +36,4 @@ Chapter 1 is intentionally represented as project framing in [README.md](../READ
 - Chapter 10's rewritten treatment of errors is the clearest example of the repo's new stance: simplify the knowledge burden, but keep important distinctions visible.
 - Chapter 9 is used to counter shallow "small pieces everywhere" thinking by centering split-vs-join decisions on information hiding and overall complexity.
 - Chapter 12 is kept separate from Chapter 13 so the repo now covers both why comments matter and how to write useful ones.
-
+- Supplemental architecture heuristics such as [distribution-has-a-premium.md](distribution-has-a-premium.md) and [own-data-boundaries.md](own-data-boundaries.md) are intentionally outside this chapter map because they come from broader architecture practice rather than from the book's chapter structure.

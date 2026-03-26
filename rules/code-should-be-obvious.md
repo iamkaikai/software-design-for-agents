@@ -23,7 +23,7 @@ Non-obvious code consumes time on every read and increases the chance that futur
 - Obvious to one expert is not always obvious to the next maintainer. The test is the reader's experience, not the author's confidence.
 - Some domains are inherently subtle; the goal is to make the subtlety legible, not to pretend it does not exist.
 - Simplifying for readability may require more lines, more intermediate names, or a slightly less "elegant" implementation.
-- Ask for clarification when code remains hard to follow because the underlying contract, event ordering, or lifecycle model is still ambiguous.
+- Clarify the underlying contract when code remains hard to follow because event ordering, lifecycle, or semantics are still ambiguous.
 
 ## When Context Changes the Answer
 

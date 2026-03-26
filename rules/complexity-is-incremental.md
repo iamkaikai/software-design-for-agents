@@ -23,7 +23,7 @@ If you only react to obvious disasters, you will miss the steady drift that make
 - This rule does not mean every increase in complexity is avoidable. Some complexity is required by the problem itself.
 - The goal is to reject unnecessary complexity, not to freeze the design or refuse hard requirements.
 - Applying the rule well requires judgment about whether a change is a one-time cost with clear leverage or the start of a new burden.
-- Ask for clarification when a "small" requested change introduces a new concept, mode, state, or semantic exception that may spread.
+- Clarify the trade-off when a "small" requested change introduces a new concept, mode, state, or semantic exception that may spread.
 
 ## When Context Changes the Answer
 

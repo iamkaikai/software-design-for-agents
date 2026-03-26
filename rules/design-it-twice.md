@@ -23,7 +23,7 @@ The first idea is often shaped by habit, local context, or the current call site
 - You do not need a formal design exercise for every tiny helper. Apply this where the interface, decomposition, or long-term shape matters.
 - The cost is more up-front thinking and occasional discarded sketches.
 - The benefit comes from comparison, not from generating many options for its own sake.
-- Ask for clarification when a design choice has multiple plausible meanings or boundaries and the caller's actual priorities are not yet explicit.
+- Clarify the priorities when a design choice has multiple plausible meanings or boundaries and the caller's actual priorities are not yet explicit.
 
 ## When Context Changes the Answer
 

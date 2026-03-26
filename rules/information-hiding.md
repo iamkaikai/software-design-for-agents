@@ -23,7 +23,7 @@ When the same knowledge appears in multiple places, the system becomes harder to
 - Hiding is only good when the hidden information is not needed by callers to act correctly.
 - This rule shifts understanding from representation details to module contracts; callers still need the parts of the truth that affect semantics, performance, or safety.
 - Over-hiding can make important distinctions invisible and create surprising behavior.
-- Ask for clarification when a proposed abstraction hides data, modes, or operational differences that callers may need in order to make correct decisions.
+- Clarify the trade-off when a proposed abstraction hides data, modes, or operational differences that callers may need in order to make correct decisions.
 
 ## When Context Changes the Answer
 

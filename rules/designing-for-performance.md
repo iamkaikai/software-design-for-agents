@@ -23,7 +23,7 @@ Ignoring performance entirely can produce death by a thousand cuts. Chasing spee
 - Performance work often moves complexity into representation, caching, batching, or specialized fast paths. Keep that cost local and justified.
 - Faster is not automatically better if the gain is marginal and the new design becomes harder to maintain.
 - Some systems have hard latency or throughput requirements that justify extra complexity up front; others should optimize later and only where data demands it.
-- Ask for clarification when a proposed optimization changes semantics, observability, memory use, operational risk, or interface behavior without a measured performance target.
+- Clarify the trade-off when a proposed optimization changes semantics, observability, memory use, operational risk, or interface behavior without a measured performance target.
 
 ## When Context Changes the Answer
 

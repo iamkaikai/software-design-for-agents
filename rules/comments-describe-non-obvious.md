@@ -23,7 +23,7 @@ Code can show mechanics, but it often cannot fully express intent, rationale, as
 - Comments are not a substitute for clear code. If a comment only explains a confusing implementation, the code may still need redesign.
 - Comments add maintenance cost and can become noise when they restate visible behavior.
 - The simplification comes from shifting some understanding into prose; that only works when the prose is accurate and selective.
-- Ask for clarification when a comment is being used to justify surprising semantics, cross-module constraints, or temporary design debt that should instead be made explicit in code or interface contracts.
+- Clarify the contract when a comment is being used to justify surprising semantics, cross-module constraints, or temporary design debt that should instead be made explicit in code or interface contracts.
 
 ## When Context Changes the Answer
 

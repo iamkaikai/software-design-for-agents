@@ -23,7 +23,7 @@ Tactical coding ships local behavior quickly but often leaves behind fragile sea
 - Strategic work is not a license for overdesign. You are buying future simplicity, not architecture theater.
 - You still need to ship. The question is how much design work is justified by the likely lifetime and reuse of the code.
 - The cost moves from immediate typing speed to deliberate design time; that trade is only good when it lowers future change cost.
-- Ask for clarification when a request pressures you toward a shortcut that changes long-lived interfaces, duplicates logic, or entrenches a known bad abstraction.
+- Clarify the trade-off when a request pressures you toward a shortcut that changes long-lived interfaces, duplicates logic, or entrenches a known bad abstraction.
 
 ## When Context Changes the Answer
 

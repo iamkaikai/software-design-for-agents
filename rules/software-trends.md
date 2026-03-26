@@ -23,7 +23,7 @@ Popular practices often solve real problems, but applying them mechanically can 
 - Dismissing trends reflexively is just as shallow as worshipping them. Many patterns exist because they genuinely help.
 - The burden moves to evaluation: you must understand what problem the trend solves and whether that problem exists here.
 - Familiar frameworks can reduce local decision cost, but only if they do not force irrelevant ceremony onto the design.
-- Ask for clarification when a proposed pattern, architecture, or process is being chosen for legitimacy or familiarity rather than for a stated reduction in complexity.
+- Clarify the decision when a proposed pattern, architecture, or process is being chosen for legitimacy or familiarity rather than for a stated reduction in complexity.
 
 ## When Context Changes the Answer
 
