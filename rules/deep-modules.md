@@ -6,28 +6,39 @@ tags: [interfaces, abstraction, modules]
 
 ## Principle
 
-The best modules are deep: they provide powerful functionality behind a simple interface. A deep module hides significant complexity from the rest of the system. The opposite — a shallow module — has a complex interface relative to the small amount of functionality it provides.
+Prefer modules whose interface is small relative to the functionality and complexity they hide.
 
 ## Why It Matters
 
-Every interface represents complexity that the rest of the system must manage. Deep modules minimize this cost by offering a high ratio of functionality to interface complexity. Shallow modules spread complexity across the system because callers must understand more to use them.
+Interfaces are paid for by every caller. A deep module concentrates complexity behind a boundary so the rest of the system can ignore most of it.
 
-## How to Apply
+## What It Simplifies
 
-- Design interfaces that are much simpler than the implementation behind them.
-- A module with a simple interface but hundreds of lines of implementation is a good sign — it's hiding complexity.
-- Avoid creating classes or functions that are little more than pass-throughs.
-- If a module's interface is almost as complex as its implementation, consider merging it with an adjacent module or rethinking the decomposition.
+- It reduces the amount of API surface that callers must learn.
+- It replaces multi-step usage protocols with a smaller number of meaningful operations.
+- It keeps implementation detail local instead of making every caller participate.
+
+## Trade-offs and Boundaries
+
+- Deep does not mean large in every direction. A big interface with many unrelated features is not deep; it is sprawling.
+- A deep abstraction still requires callers to understand its contract, invariants, and failure modes.
+- Sometimes the cheapest honest interface is narrow because the underlying behavior truly differs across use cases.
+- Ask for clarification when a module boundary is being defined around team ownership or file layout rather than around a coherent abstraction.
+
+## When Context Changes the Answer
+
+- Internal helper layers can be smaller and narrower if they support one higher-level abstraction cleanly.
+- Public or shared modules benefit most from depth because interface clutter is multiplied across many callers.
 
 ## Red Flags
 
-- Classes with many methods that each do very little.
-- Interfaces where the caller must make multiple calls in a specific sequence to accomplish one logical operation.
-- Functions where the argument list is as complex as the function body.
-- Wrapper classes that add little value beyond delegation.
+- A caller must make several ordered calls to complete one logical task.
+- Wrapper modules mostly pass through calls with renamed methods.
+- The interface exposes many toggles that mirror implementation choices.
+- You can only understand the top-level module by reading several lower-level helpers in detail.
 
 ## Examples
 
-**Bad:** A `FileReader` class where the caller must call `open()`, `setEncoding()`, `setBufferSize()`, `readHeader()`, then `readBody()` in order.
+**Helpful:** A storage client that exposes `put`, `get`, and `delete` while hiding retries, pooling, and encoding.
 
-**Good:** A `FileReader` class where the caller calls `read(path)` and the class handles encoding detection, buffering, and parsing internally.
+**Backfires:** A "deep" service object that hides too much important behavior and forces callers to guess at lifecycle, latency, or consistency semantics.

@@ -6,28 +6,39 @@ tags: [abstraction, modules, layers]
 
 ## Principle
 
-Each layer of a system should provide a different abstraction from the layers above and below it. If adjacent layers have similar abstractions, the decomposition is likely wrong — classes may be too shallow or responsibilities may be poorly divided.
+Adjacent layers should not expose the same idea in slightly different packaging. Each layer should change the abstraction, not merely relay it.
 
 ## Why It Matters
 
-When adjacent layers operate at the same level of abstraction, they create pass-through methods and shallow modules. This adds complexity without adding value. Good layering means each level transforms or simplifies what the level below provides.
+When layers have the same abstraction, you pay for extra boundaries without getting extra leverage. This creates pass-through methods, duplicated protocols, and more surface area to maintain.
 
-## How to Apply
+## What It Simplifies
 
-- When writing a method that mostly just calls another method with the same signature, ask whether the layers are properly separated.
-- Each layer should add meaningful transformation, aggregation, or simplification.
-- If a decorator or wrapper just delegates without changing the abstraction, consider eliminating it.
-- Think of layers as a progression from low-level (close to the machine/storage) to high-level (close to the user/business logic).
+- It reduces shallow wrapper layers that add no new meaning.
+- It makes system structure easier to reason about because each layer has a distinct role.
+- It keeps callers from managing lower-level details that should have been transformed away.
+
+## Trade-offs and Boundaries
+
+- Some duplication across layers is acceptable when adapting an external interface, preserving stability, or enforcing policy.
+- A wrapper can be worthwhile if it narrows an unstable dependency or creates a safer contract, even when much of the data still looks similar.
+- The complexity can move into the adapting layer, which is fine if it genuinely protects callers.
+- Ask for clarification when a new layer mostly mirrors an existing API and the value of the extra boundary is not explicit.
+
+## When Context Changes the Answer
+
+- Anti-corruption layers around vendor APIs often keep a similar shape on purpose to isolate churn.
+- Internal service or helper layers should usually justify themselves with a clearer abstraction, not just ownership boundaries.
 
 ## Red Flags
 
-- Pass-through methods that add no logic, just forward calls.
-- A class whose methods have the same signatures as the methods of the class it wraps.
-- Multiple layers of classes with nearly identical interfaces.
-- Dispatcher or router classes that just map calls to another class with the same API.
+- Methods only rename or forward arguments.
+- Several layers expose nearly identical request and response objects.
+- The main reason a layer exists is "future flexibility" without a concrete interface benefit.
+- Readers must inspect both layers together to understand one behavior.
 
 ## Examples
 
-**Bad:** A `UserService` that has a `getUser(id)` method which simply calls `UserRepository.getUser(id)` with no additional logic.
+**Helpful:** A domain service that turns low-level storage records into business concepts.
 
-**Good:** A `UserService` that provides `getUserProfile(id)` — combining data from `UserRepository`, `PreferencesRepository`, and an avatar service into a unified view.
+**Backfires:** A service class that simply forwards repository methods under slightly different names.

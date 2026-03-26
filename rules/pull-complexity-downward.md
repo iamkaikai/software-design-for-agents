@@ -6,28 +6,39 @@ tags: [complexity, interfaces, modules]
 
 ## Principle
 
-It is more important for a module to have a simple interface than a simple implementation. When there's a choice between pushing complexity to the caller or handling it internally, handle it internally. Pull complexity downward into the implementation.
+When a choice must be made between a simpler implementation and a simpler interface, usually prefer the simpler interface and carry the complexity inside the module.
 
 ## Why It Matters
 
-A module is used in many places but implemented once. Complexity in the implementation is paid once; complexity in the interface is paid by every caller. Simpler interfaces reduce the overall system complexity even if the module itself becomes harder to implement.
+Implementation complexity is paid once. Interface complexity is paid by every caller, reviewer, and future maintainer. Pulling complexity downward can reduce total system cost even when the module itself gets harder to implement.
 
-## How to Apply
+## What It Simplifies
 
-- If you can handle a concern (defaults, error recovery, configuration) inside the module, don't force the caller to handle it.
-- Provide sensible defaults instead of requiring configuration.
-- Handle edge cases and errors internally where possible, rather than surfacing them to callers.
-- Ask: "Would a caller ever want to do this differently?" If not, just do it inside the module.
+- It removes repeated boilerplate from call sites.
+- It replaces distributed edge-case handling with one internal implementation.
+- It often lowers the cognitive load of common usage.
+
+## Trade-offs and Boundaries
+
+- Complexity should move downward only when the module can still expose honest, predictable semantics.
+- Pulling too much inward can hide important distinctions, operational costs, or rare-but-critical choices that callers actually need to control.
+- The complexity does not disappear; it moves into defaults, policies, and internal branching that must still be designed well.
+- Ask for clarification when the proposed simplification removes a caller choice that may matter for correctness, visibility, or performance.
+
+## When Context Changes the Answer
+
+- Good defaults are valuable when most callers want the same thing.
+- Explicit options are better when usage varies materially and hidden policy would surprise callers.
 
 ## Red Flags
 
-- Callers that must always pass the same boilerplate configuration.
-- Every caller wrapping a function call with the same error-handling logic.
-- "Convenience wrapper" functions that exist because the real interface is too hard to use directly.
-- APIs that require multiple steps for the common case.
+- Every caller passes the same options or performs the same validation first.
+- Callers repeatedly wrap the same module with helper functions just to make common usage tolerable.
+- A "simple" API hides costly or irreversible behavior that callers discover too late.
+- Rare use cases are handled by undocumented conventions rather than visible extension points.
 
 ## Examples
 
-**Bad:** A `connect(host, port, timeout, retries, backoffStrategy, tlsConfig)` function where every caller passes nearly identical arguments.
+**Helpful:** `connect(host)` uses safe defaults while an advanced path exists for unusual needs.
 
-**Good:** A `connect(host)` function that uses sensible defaults and a separate `connectWithOptions(host, options)` for the rare caller that needs customization.
+**Backfires:** Automatically retrying non-idempotent operations without giving callers control or visibility.

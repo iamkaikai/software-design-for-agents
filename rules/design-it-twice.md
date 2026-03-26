@@ -6,28 +6,39 @@ tags: [design, process]
 
 ## Principle
 
-Before committing to a design, consider at least two different approaches. Compare them against each other. The first idea is rarely the best, and comparing alternatives surfaces trade-offs you wouldn't otherwise see.
+Before committing to an important design choice, compare at least two plausible approaches.
 
 ## Why It Matters
 
-Developers tend to latch onto the first design that comes to mind and implement it immediately. But the first design is often shaped by mental inertia rather than careful analysis. Considering a second design forces you to articulate why one approach is better, leading to stronger decisions.
+The first idea is often shaped by habit, local context, or the current call site. Looking at alternatives makes trade-offs visible and forces you to articulate why one design is better.
 
-## How to Apply
+## What It Simplifies
 
-- When starting a new module, class, or significant function, sketch at least two different interface designs before writing code.
-- Compare alternatives on: simplicity of interface, flexibility, performance, and how well they hide information.
-- Even if you end up choosing the first design, the exercise of comparison strengthens your confidence.
-- This applies at all scales: function signatures, class hierarchies, system architecture.
+- It reduces accidental commitment to the first acceptable option.
+- It reveals which complexity is inherent and which is introduced by the chosen design.
+- It helps surface better abstractions, not just better implementations.
+
+## Trade-offs and Boundaries
+
+- You do not need a formal design exercise for every tiny helper. Apply this where the interface, decomposition, or long-term shape matters.
+- The cost is more up-front thinking and occasional discarded sketches.
+- The benefit comes from comparison, not from generating many options for its own sake.
+- Ask for clarification when a design choice has multiple plausible meanings or boundaries and the caller's actual priorities are not yet explicit.
+
+## When Context Changes the Answer
+
+- Shared modules, public interfaces, and structural refactors benefit most from explicit comparison.
+- Tiny internal changes may only need a quick mental alternative rather than written design work.
 
 ## Red Flags
 
-- Jumping straight to implementation without considering alternatives.
-- "This is the obvious way to do it" — the obvious way is not always the best.
-- A design that feels forced or awkward, but is pursued because it was the first one considered.
-- Difficulty explaining why the chosen approach is better than alternatives.
+- "This is the obvious design" ends the discussion before trade-offs are stated.
+- A design feels awkward but no one compared it to a different abstraction.
+- Performance, simplicity, and extensibility pull in different directions and no one states the chosen priority.
+- The team debates implementation details before agreeing on the interface.
 
 ## Examples
 
-**Bad:** Immediately implementing a tree structure because the data is hierarchical, without considering whether a flat list with parent references might be simpler for the actual use cases.
+**Helpful:** Comparing range-based and line-based text APIs before implementing an editor core.
 
-**Good:** Sketching both a tree and a flat-list approach, comparing how each handles the three most common operations, then choosing based on actual trade-offs.
+**Backfires:** Spending days comparing exotic alternatives for a simple private helper whose contract is already clear.

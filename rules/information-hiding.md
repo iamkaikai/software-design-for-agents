@@ -6,30 +6,39 @@ tags: [abstraction, modules, encapsulation]
 
 ## Principle
 
-Each module should encapsulate knowledge — design decisions, data formats, internal mechanisms — and hide it behind a simple interface. Information leakage occurs when the same knowledge is used in multiple modules, creating tight coupling.
+Each module should own specific design knowledge and keep that knowledge from spreading unnecessarily.
 
 ## Why It Matters
 
-When implementation details leak across module boundaries, changes to those details require modifying multiple modules simultaneously. This makes the system fragile and harder to evolve. Information hiding is the most important technique for achieving deep modules.
+When the same knowledge appears in multiple places, the system becomes harder to change because one design decision now has many dependents. Information hiding is one of the main ways to contain change amplification.
 
-## How to Apply
+## What It Simplifies
 
-- When designing a module, ask: "What knowledge does this module hide from the rest of the system?"
-- If two modules both depend on the same piece of knowledge (file format, protocol, algorithm), one of them should own it entirely.
-- Avoid exposing internal data structures through your interface.
-- Private methods and fields are a tool for information hiding — use them.
-- If changing one module always requires changing another, they likely share leaked information.
+- It reduces the number of places that must change when an internal decision changes.
+- It lets callers operate on a simpler view of the module rather than its representation.
+- It replaces distributed knowledge with a single point of truth.
+
+## Trade-offs and Boundaries
+
+- Hiding is only good when the hidden information is not needed by callers to act correctly.
+- This rule shifts understanding from representation details to module contracts; callers still need the parts of the truth that affect semantics, performance, or safety.
+- Over-hiding can make important distinctions invisible and create surprising behavior.
+- Ask for clarification when a proposed abstraction hides data, modes, or operational differences that callers may need in order to make correct decisions.
+
+## When Context Changes the Answer
+
+- Internal data structures usually should be hidden.
+- User-visible guarantees, tuning knobs that materially affect behavior, and distinctions needed for correctness usually should remain visible.
 
 ## Red Flags
 
-- Two classes that both know the details of a file format.
-- An interface that exposes internal data structures (returning raw internal maps, lists, etc.).
-- Changing a data format requires edits in multiple unrelated files.
-- Back-door dependencies via global variables or shared mutable state.
-- Classes whose interfaces mirror their implementation closely.
+- Two modules both know the same file format, protocol rule, or validation logic.
+- An API returns raw internal maps, records, or state objects that callers must interpret.
+- A change to representation requires changes in distant callers.
+- Module boundaries follow execution order instead of ownership of knowledge.
 
 ## Examples
 
-**Bad:** Both the `HTTPParser` and the `RequestHandler` know the exact byte layout of the HTTP header format.
+**Helpful:** One parser owns wire-format details and returns a domain object.
 
-**Good:** `HTTPParser` fully owns HTTP format knowledge and exposes a structured `Request` object. `RequestHandler` never sees raw bytes.
+**Backfires:** A transport layer hides delivery guarantees that application code must actually reason about.

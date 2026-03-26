@@ -1,34 +1,40 @@
 # Profile: Implementation
 
-Use these rules when writing new code — new features, modules, or systems.
+Use these rules when writing new modules, features, or systems.
+
+Read the trade-off sections, not just the rule titles. If a rule would hide an important distinction or force a surprising semantic choice, stop and clarify the contract before implementation.
 
 ## Primary Rules
 
-Apply these rules during every implementation:
+Apply these rules during most implementation work:
 
-1. **[Tactical vs Strategic](../rules/tactical-vs-strategic.md)** — Invest in good design. Don't just make it work — make it clean.
-2. **[Deep Modules](../rules/deep-modules.md)** — Design modules with simple interfaces and rich implementations.
-3. **[Information Hiding](../rules/information-hiding.md)** — Each module should encapsulate and hide its design decisions.
-4. **[General-Purpose Modules](../rules/general-purpose-modules.md)** — Design interfaces for the general problem, not just today's caller.
-5. **[Pull Complexity Downward](../rules/pull-complexity-downward.md)** — Handle complexity inside the module, not at the call site.
-6. **[Design It Twice](../rules/design-it-twice.md)** — Consider at least two designs before committing to one.
-7. **[Write Comments First](../rules/write-comments-first.md)** — Write interface comments before implementation to clarify your thinking.
+1. **[Working Code Isn't Enough](../rules/tactical-vs-strategic.md)** — Invest in design, not just behavior.
+2. **[Deep Modules](../rules/deep-modules.md)** — Prefer small interfaces over small implementations.
+3. **[Information Hiding](../rules/information-hiding.md)** — Decide what knowledge each module should own.
+4. **[General-Purpose Modules](../rules/general-purpose-modules.md)** — Solve the broader problem, not only today's caller.
+5. **[Pull Complexity Downward](../rules/pull-complexity-downward.md)** — Move repeated caller burden inward when semantics remain honest.
+6. **[Better Together Or Better Apart](../rules/better-together-or-better-apart.md)** — Choose decomposition based on overall complexity, not size alone.
+7. **[Design It Twice](../rules/design-it-twice.md)** — Compare alternatives before fixing the interface.
+8. **[Write Comments First](../rules/write-comments-first.md)** — Use early comments to test whether the abstraction is clear.
+9. **[Decide What Matters](../rules/decide-what-matters.md)** — Center the design on the distinctions that actually matter.
 
 ## Secondary Rules
 
 Apply when relevant:
 
-8. **[Define Errors Out of Existence](../rules/define-errors-out-of-existence.md)** — Design APIs so errors can't happen in the first place.
-9. **[Choose Names Carefully](../rules/choose-names-carefully.md)** — Invest time in precise, consistent names.
-10. **[Different Layer, Different Abstraction](../rules/different-layer-different-abstraction.md)** — Each layer should transform the abstraction, not just pass it through.
+10. **[Define Errors Out of Existence](../rules/define-errors-out-of-existence.md)** — Simplify branch-heavy error handling only when the new semantics stay clear.
+11. **[Why Write Comments](../rules/why-write-comments.md)** — Document what code cannot express by itself.
+12. **[Choose Names Carefully](../rules/choose-names-carefully.md)** — Name the important distinctions directly.
+13. **[Different Layer, Different Abstraction](../rules/different-layer-different-abstraction.md)** — Do not add layers that merely relay the same idea.
+14. **[Designing for Performance](../rules/designing-for-performance.md)** — Keep performance decisions measured and proportional.
 
 ## Implementation Checklist
 
-Before considering a piece of code done, ask:
+Before considering the code done, ask:
 
-- [ ] Is the interface much simpler than the implementation?
-- [ ] Is knowledge hidden — would a change to internals require changing callers?
-- [ ] Did I consider an alternative design?
-- [ ] Are comments written for the interface explaining the abstraction?
-- [ ] Does the module pull complexity inward rather than pushing it to callers?
-- [ ] Are names precise enough that the code reads without needing comments?
+- [ ] What complexity did this design remove?
+- [ ] What complexity did it move into semantics, defaults, implementation, or operations?
+- [ ] Which distinctions must stay visible to callers?
+- [ ] Did I compare at least one materially different alternative where the boundary mattered?
+- [ ] Is the interface simpler than the implementation behind it?
+- [ ] If the trade-off is still ambiguous, did I clarify the contract instead of guessing?

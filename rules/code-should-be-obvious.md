@@ -6,31 +6,39 @@ tags: [readability, complexity]
 
 ## Principle
 
-Code is obvious if a reader can understand it quickly without much thought. If code requires careful study or external knowledge to understand, it is not obvious — and it will be a source of bugs and slow development.
+Code should be arranged so a reasonable reader can form the right mental model quickly and with little guesswork.
 
 ## Why It Matters
 
-Developers spend far more time reading code than writing it. Obvious code is faster to understand, faster to review, and less likely to harbor hidden bugs. Non-obvious code forces every future reader to spend time deciphering what the original author intended.
+Non-obvious code consumes time on every read and increases the chance that future modifications are made under false assumptions. Obviousness is a direct defense against obscurity.
 
-## How to Apply
+## What It Simplifies
 
-- Use clear, descriptive names that eliminate the need for mental mapping.
-- Structure code so the flow of execution is easy to follow.
-- Avoid clever tricks, unusual language features, or subtle side effects.
-- When a piece of code is not obvious, consider rewriting it before adding a comment.
-- Use whitespace and grouping to visually reflect the logical structure.
-- Limit the number of things a reader needs to hold in their head at any one time.
+- It reduces the amount of hidden context a reader must gather before acting.
+- It replaces cleverness with clearer structure, naming, and control flow.
+- It makes reviews, debugging, and maintenance faster because the first interpretation is more often correct.
+
+## Trade-offs and Boundaries
+
+- Obvious to one expert is not always obvious to the next maintainer. The test is the reader's experience, not the author's confidence.
+- Some domains are inherently subtle; the goal is to make the subtlety legible, not to pretend it does not exist.
+- Simplifying for readability may require more lines, more intermediate names, or a slightly less "elegant" implementation.
+- Ask for clarification when code remains hard to follow because the underlying contract, event ordering, or lifecycle model is still ambiguous.
+
+## When Context Changes the Answer
+
+- Performance-critical or low-level code may legitimately use denser techniques, but then naming, structure, and comments have to compensate.
+- Convention-heavy environments can rely more on established patterns because readers already carry that knowledge.
 
 ## Red Flags
 
-- Code that requires reading the implementation of called functions to understand the caller.
-- Clever one-liners that pack multiple operations together.
-- Variables whose type or purpose is unclear from context.
-- Event-driven or callback-based code where the execution order is hard to follow.
-- Generic container types (e.g., `Pair<String, List<Integer>>`) where the meaning of each element is unclear.
+- Readers must inspect several helper functions just to understand a simple path.
+- The code relies on surprising side effects, hidden ordering, or subtle language features.
+- Generic containers or vague variable names obscure meaning.
+- Review comments repeatedly ask "what does this actually do?"
 
 ## Examples
 
-**Bad:** `return x ? a || (b && !c) : d ?? e;` — technically correct but requires careful parsing.
+**Helpful:** Splitting a complex condition into well-named intermediate booleans.
 
-**Good:** Extracting the condition into a well-named boolean variable, then using a simple if/else.
+**Backfires:** Flattening nuanced domain logic so aggressively that the code becomes superficially simple but semantically misleading.

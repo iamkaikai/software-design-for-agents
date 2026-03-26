@@ -6,29 +6,39 @@ tags: [maintenance, complexity, design]
 
 ## Principle
 
-When modifying existing code, don't just make the change work — make sure the change fits cleanly into the existing design. If the system's design doesn't accommodate the change well, improve the design as part of the change.
+When changing existing code, make the change fit the design cleanly or improve the design enough that it can.
 
 ## Why It Matters
 
-Most development time is spent modifying existing code, not writing new code. Each modification is an opportunity to improve the design or to degrade it. If developers only focus on making changes work without considering design, the system degrades steadily.
+Most software work happens in existing systems. If each change only patches the immediate need, design quality steadily erodes and later work becomes slower and riskier.
 
-## How to Apply
+## What It Simplifies
 
-- After making a change, step back and ask: "Does this change fit naturally into the existing design, or did I force it in?"
-- If a change requires touching many modules, consider whether a refactoring would localize the change.
-- Maintain the design invariants of the code you're modifying — don't break abstractions for convenience.
-- If you're adding a feature that doesn't fit the current structure, refactor the structure to accommodate it cleanly.
-- Leave the code cleaner than you found it.
+- It reduces long-term fragility by preventing local hacks from becoming permanent structure.
+- It turns maintenance into gradual repair instead of gradual decay.
+- It lowers future change cost by keeping abstractions aligned with current reality.
+
+## Trade-offs and Boundaries
+
+- Not every modification warrants a large refactor. The right move is the smallest design improvement that keeps the new change honest.
+- Cleaning up one area can expose more debt than fits the current change budget; choose leverage, not perfectionism.
+- This rule moves some effort from feature delivery into structural maintenance, which is worthwhile only when it genuinely lowers future cost.
+- Ask for clarification when a requested patch clearly conflicts with the existing design and the expected scope of cleanup is materially larger than the stated change.
+
+## When Context Changes the Answer
+
+- Shared or frequently modified code deserves more cleanup investment than isolated dead-end code.
+- Bug fixes should usually leave the surrounding code simpler, but emergency operational fixes may need a follow-up cleanup instead of immediate refactoring.
 
 ## Red Flags
 
-- Modifications that scatter related changes across many unrelated files.
-- Special-case logic added to a general-purpose module for one specific caller.
-- Changes that violate the naming conventions or structural patterns of the surrounding code.
-- A change that works but makes the next change harder.
+- The change is technically correct but adds new branches in several unrelated files.
+- The same module keeps accumulating one-off cases for new requests.
+- Developers are afraid to touch a file and instead add wrappers around it.
+- Comment updates are skipped because the design no longer matches the code.
 
 ## Examples
 
-**Bad:** Adding an `if (isSpecialCase)` branch in five different functions to support a new feature.
+**Helpful:** Refactoring a branching serializer into a strategy-based boundary before adding a new format.
 
-**Good:** Refactoring to introduce a strategy pattern or a new abstraction that handles the new feature alongside existing features in a uniform way.
+**Backfires:** Turning a one-line urgent fix into a multi-day redesign of unrelated parts of the system.

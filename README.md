@@ -1,120 +1,136 @@
 # Software Design for Agents
 
-Software design principles from [*A Philosophy of Software Design*](https://web.stanford.edu/~ouster/cgi-bin/book.php) by John Ousterhout, structured for AI coding agents to follow.
+Software design heuristics for AI coding agents, derived from *A Philosophy of Software Design* by John Ousterhout and adapted for real engineering trade-offs.
 
-Works with **any AI coding agent** — Claude, OpenAI Codex, Gemini, Cursor, Aider, and more.
+Works with Claude, OpenAI Codex, Gemini, Cursor, Aider, and other coding agents.
+
+## Context First
+
+This project does **not** treat design rules as one-size-fits-all commandments.
+
+- These rules are decision aids, not slogans to apply mechanically.
+- Good design always moves complexity somewhere: into interfaces, semantics, implementation, operations, or future change.
+- The goal is not to eliminate understanding. The goal is to replace more dangerous, scattered, and branch-heavy understanding with simpler, more local, and more predictable understanding.
+- When a rule would hide an important distinction or make semantics surprising, context wins over the slogan.
+
+Chapter 1 of the book is represented here as project framing rather than as a standalone rule file.
 
 ## Why
 
-AI coding agents write code fast but don't inherently follow good design principles. This repo gives them a set of rules to follow, so the code they produce is well-designed — not just functional.
+AI coding agents can produce working code quickly, but working code is not enough. This repo gives agents a shared design vocabulary so they optimize for lower complexity, clearer abstractions, and more honest trade-offs.
 
 ## Quick Start
 
-### Option A: New project (use as boilerplate)
+### Option A: New project
 
 ```bash
-# Clone into your new project
 git clone https://github.com/YOUR_USERNAME/software-design-for-agents.git my-project
 cd my-project
 
-# Copy the right example file to your project root
-cp examples/CLAUDE.md ./CLAUDE.md    # For Claude Code
-cp examples/AGENTS.md ./AGENTS.md    # For OpenAI Codex / cross-platform
-cp examples/GEMINI.md ./GEMINI.md    # For Gemini CLI
-
-# Remove the scaffolding you don't need
-rm -rf examples/ profiles/ rules/ CLAUDE.md
-# (keep only the agent file you copied to the root)
+cp examples/CLAUDE.md ./CLAUDE.md
+cp examples/AGENTS.md ./AGENTS.md
+cp examples/GEMINI.md ./GEMINI.md
 ```
 
-### Option B: Add to an existing project
+Keep the file your agent needs in the project root, or keep several if you use multiple agents.
+
+### Option B: Existing project
 
 ```bash
-# From your existing project directory
 curl -O https://raw.githubusercontent.com/YOUR_USERNAME/software-design-for-agents/main/examples/AGENTS.md
-# Or CLAUDE.md / GEMINI.md depending on your agent
 ```
 
-Or just copy the contents of the file you need from the `examples/` directory.
+Or copy the contents of the file you need from `examples/`.
 
-### Option C: Use the full rule set (advanced)
+### Option C: Full rule set
 
-If you want the detailed rules and profiles available to your agent (not just the summary), copy the full `rules/` and `profiles/` directories into your project:
+If you want the detailed rule files and task profiles:
 
 ```bash
 cp -r rules/ /path/to/your-project/rules/
 cp -r profiles/ /path/to/your-project/profiles/
 ```
 
-Then reference them from your agent's config file. For example, in a `CLAUDE.md`:
+Then reference them from your agent config. Example:
 
 ```markdown
-Follow the software design rules in the `rules/` directory.
+Follow the software design rules in `rules/`.
 Before writing code, read `profiles/implement.md`.
 Before reviewing code, read `profiles/review.md`.
 ```
 
 ## What's Inside
 
-```
-rules/              # One file per design principle (16 rules)
-  _index.md         # Master list with summaries and tags
-  deep-modules.md
-  information-hiding.md
+```text
+rules/              # 20 rule files + chapter coverage map
+  _index.md         # Master list of rules
+  _coverage.md      # Chapter 1-21 coverage map
   ...
 
-profiles/           # Task-specific rule sets
-  review.md         # Rules to apply when reviewing code
-  implement.md      # Rules to apply when writing new code
-  refactor.md       # Rules to apply when refactoring
-  debug.md          # Rules to apply when debugging
-
-examples/           # Drop-in files for each agent platform
-  AGENTS.md         # OpenAI Codex / cross-platform standard
-  CLAUDE.md         # Anthropic Claude Code
-  GEMINI.md         # Google Gemini CLI
+profiles/           # Task-specific rule subsets
+examples/           # Synced agent-facing summaries
+source/             # Book source text used for coverage and refinement
 ```
+
+## The 20 Rules
+
+1. Complexity Is Incremental
+2. Working Code Isn't Enough (Tactical vs Strategic)
+3. Deep Modules
+4. Information Hiding and Leakage
+5. General-Purpose Modules
+6. Different Layer, Different Abstraction
+7. Pull Complexity Downward
+8. Better Together Or Better Apart
+9. Define Errors Out of Existence
+10. Design It Twice
+11. Why Write Comments
+12. Comments Should Describe Things Not Obvious from Code
+13. Choose Names Carefully
+14. Write Comments First
+15. Modifying Existing Code
+16. Consistency
+17. Code Should Be Obvious
+18. Software Trends vs Good Design
+19. Designing for Performance
+20. Decide What Matters
 
 ## Platform Guide
 
 | Platform | File to use | Where to put it |
-|----------|------------|-----------------|
-| **Claude Code** | `examples/CLAUDE.md` | Project root as `CLAUDE.md` |
-| **OpenAI Codex** | `examples/AGENTS.md` | Project root as `AGENTS.md` |
-| **Gemini CLI** | `examples/GEMINI.md` | Project root as `GEMINI.md` |
-| **Cursor** | `examples/AGENTS.md` | Project root as `AGENTS.md` (Cursor reads this) |
-| **Aider** | `examples/AGENTS.md` | Project root as `AGENTS.md` |
-| **Other agents** | `examples/AGENTS.md` | `AGENTS.md` is the emerging cross-platform standard |
+|----------|-------------|-----------------|
+| Claude Code | `examples/CLAUDE.md` | Project root as `CLAUDE.md` |
+| OpenAI Codex | `examples/AGENTS.md` | Project root as `AGENTS.md` |
+| Gemini CLI | `examples/GEMINI.md` | Project root as `GEMINI.md` |
+| Cursor | `examples/AGENTS.md` | Project root as `AGENTS.md` |
+| Aider | `examples/AGENTS.md` | Project root as `AGENTS.md` |
+| Other agents | `examples/AGENTS.md` | `AGENTS.md` is the best default |
 
-All three example files contain **identical content** — the only difference is the filename. Use whichever your agent expects, or use multiple if you work with several agents.
+The three example files contain identical content. Only the filename changes.
 
-## The 16 Rules (Summary)
+## How To Read The Rules
 
-1. **Complexity Is Incremental** — Fight every small increase in complexity.
-2. **Working Code Isn't Enough** — Be strategic, not tactical. Invest in design.
-3. **Deep Modules** — Simple interfaces, rich implementations.
-4. **Information Hiding** — Encapsulate knowledge behind module boundaries.
-5. **General-Purpose Modules** — Design for the general problem, not today's caller.
-6. **Different Layer, Different Abstraction** — No pass-through methods.
-7. **Pull Complexity Downward** — Handle it inside the module, not at the call site.
-8. **Define Errors Out of Existence** — Design away error conditions.
-9. **Design It Twice** — Compare alternatives before committing.
-10. **Comments Describe the Non-Obvious** — Explain why, not what.
-11. **Choose Names Carefully** — Precise names reduce cognitive load.
-12. **Write Comments First** — Use comments as a design tool.
-13. **Modifying Existing Code** — Leave the design cleaner than you found it.
-14. **Consistency** — Same patterns everywhere. No competing conventions.
-15. **Code Should Be Obvious** — If it needs study, rewrite it.
-16. **Software Trends vs Good Design** — Patterns are tools, not goals.
+Each rule file is intentionally structured around trade-offs:
+
+- `Principle`: the core idea
+- `Why It Matters`: why the idea reduces complexity
+- `What It Simplifies`: what kind of understanding or burden it reduces
+- `Trade-offs and Boundaries`: what it costs, moves, or can hide
+- `When Context Changes the Answer`: when the principle should be applied differently
+- `Red Flags`: signs of misuse or design trouble
+- `Examples`: a helpful use and a backfire case
+
+If a rule and the context disagree, the agent should reason from the trade-offs, not blindly follow the rule heading.
 
 ## Contributing
 
-To add or modify rules:
+When adding or revising rules:
 
-1. Each rule lives in its own file in `rules/` with YAML frontmatter (`name`, `chapter`, `tags`).
-2. Update `rules/_index.md` when adding/removing rules.
-3. Update relevant profiles in `profiles/` to reference new rules.
-4. Update **all three** example files in `examples/` — they must stay in sync.
+1. Keep Chapter 1 framing in repo-level docs, not as a standalone rule file.
+2. Each rule file should preserve the shared section structure.
+3. Update `rules/_index.md` and `rules/_coverage.md`.
+4. Update relevant `profiles/`.
+5. Keep all three files in `examples/` in sync.
 
 ## License
 

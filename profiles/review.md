@@ -1,34 +1,39 @@
 # Profile: Code Review
 
-Use these rules when reviewing code changes (PRs, diffs, code review).
+Use these rules when reviewing code changes.
+
+Review for trade-offs, not just local correctness. The main question is whether the change makes the system easier or harder to reason about over time.
 
 ## Primary Rules
 
-Apply these rules to every review:
+Apply these rules to most reviews:
 
-1. **[Complexity Is Incremental](../rules/complexity-is-incremental.md)** — Is this change adding unnecessary complexity? Even small increments matter.
-2. **[Deep Modules](../rules/deep-modules.md)** — Are new modules/classes deep (simple interface, rich implementation) or shallow?
-3. **[Information Hiding](../rules/information-hiding.md)** — Does the change leak implementation details across boundaries?
-4. **[Different Layer, Different Abstraction](../rules/different-layer-different-abstraction.md)** — Are there new pass-through methods or redundant layers?
-5. **[Code Should Be Obvious](../rules/code-should-be-obvious.md)** — Can you understand the change without extensive study?
-6. **[Choose Names Carefully](../rules/choose-names-carefully.md)** — Are new names precise and consistent with the codebase?
-7. **[Consistency](../rules/consistency.md)** — Does the change follow existing patterns and conventions?
+1. **[Complexity Is Incremental](../rules/complexity-is-incremental.md)** — Small complexity increases still count.
+2. **[Deep Modules](../rules/deep-modules.md)** — Check whether new interfaces buy enough leverage.
+3. **[Information Hiding](../rules/information-hiding.md)** — Look for leaked knowledge and overexposed representation.
+4. **[Better Together Or Better Apart](../rules/better-together-or-better-apart.md)** — Challenge needless splitting and needless joining.
+5. **[Code Should Be Obvious](../rules/code-should-be-obvious.md)** — The intended mental model should be easy to form.
+6. **[Choose Names Carefully](../rules/choose-names-carefully.md)** — Names should encode the important distinctions.
+7. **[Consistency](../rules/consistency.md)** — Similar ideas should behave in similar ways.
+8. **[Decide What Matters](../rules/decide-what-matters.md)** — The change should emphasize the right distinctions, not the incidental ones.
 
 ## Secondary Rules
 
-Apply when relevant to the change:
+Apply when relevant:
 
-8. **[Define Errors Out of Existence](../rules/define-errors-out-of-existence.md)** — Does new error handling add unnecessary complexity?
-9. **[Comments Should Describe Things Not Obvious from Code](../rules/comments-describe-non-obvious.md)** — Are comments adding value, or just restating code?
-10. **[Software Trends vs Good Design](../rules/software-trends.md)** — Is a pattern being applied because it helps, or just because it's trendy?
+9. **[Define Errors Out of Existence](../rules/define-errors-out-of-existence.md)** — Check whether simplification preserved the distinctions that matter.
+10. **[Why Write Comments](../rules/why-write-comments.md)** — Ask whether missing documentation is forcing readers into code archaeology.
+11. **[Comments Should Describe Things Not Obvious from Code](../rules/comments-describe-non-obvious.md)** — Comments should add design knowledge, not echo the code.
+12. **[Software Trends vs Good Design](../rules/software-trends.md)** — Patterns should earn their keep.
+13. **[Designing for Performance](../rules/designing-for-performance.md)** — Complexity added for performance should be measured and justified.
 
 ## Review Checklist
 
 When reviewing, ask:
 
-- [ ] Does this change increase or decrease overall system complexity?
-- [ ] Are new interfaces simpler than their implementations?
-- [ ] Is knowledge properly encapsulated, or does it leak across modules?
-- [ ] Could a new team member understand this code without help?
-- [ ] Do names accurately communicate purpose?
-- [ ] Does the change follow existing codebase conventions?
+- [ ] Does this change reduce or increase overall system complexity?
+- [ ] What new knowledge must readers or callers now carry?
+- [ ] Did the change hide something that should remain visible?
+- [ ] Are new boundaries deeper, clearer, and more honest than the old ones?
+- [ ] Are comments, names, and APIs aligned on the same semantics?
+- [ ] If the semantics are ambiguous, did the author clarify them or silently pick one?

@@ -6,29 +6,39 @@ tags: [design, mindset]
 
 ## Principle
 
-Software trends (design patterns, agile, TDD, OOP, etc.) are tools, not religions. Evaluate each trend based on whether it reduces complexity in your specific situation. Don't apply a pattern just because it's popular — apply it when it genuinely simplifies the system.
+Treat trends, paradigms, and patterns as tools to evaluate, not doctrines to obey.
 
 ## Why It Matters
 
-Cargo-culting trends leads to over-engineered code. Design patterns used where they aren't needed add complexity instead of reducing it. The goal is always the same: reduce the complexity of the system. Trends are only valuable when they serve that goal.
+Popular practices often solve real problems, but applying them mechanically can increase complexity instead of reducing it. Good design still depends on whether the technique fits the specific problem.
 
-## How to Apply
+## What It Simplifies
 
-- Ask "Does this pattern/practice reduce complexity here?" before applying it.
-- Don't create abstractions just because a pattern suggests you should — only abstract when it simplifies.
-- Test-driven development is useful, but don't let it drive you toward shallow modules or bad interfaces.
-- Object-oriented design is a tool, not a goal. Not everything needs to be a class.
-- Getters and setters that expose internal state aren't encapsulation — they're ceremony.
+- It prevents cargo-cult abstractions and process rituals from becoming design substitutes.
+- It redirects attention from ideology to actual complexity costs and benefits.
+- It encourages reuse of useful patterns without surrendering judgment to them.
+
+## Trade-offs and Boundaries
+
+- Dismissing trends reflexively is just as shallow as worshipping them. Many patterns exist because they genuinely help.
+- The burden moves to evaluation: you must understand what problem the trend solves and whether that problem exists here.
+- Familiar frameworks can reduce local decision cost, but only if they do not force irrelevant ceremony onto the design.
+- Ask for clarification when a proposed pattern, architecture, or process is being chosen for legitimacy or familiarity rather than for a stated reduction in complexity.
+
+## When Context Changes the Answer
+
+- Strong ecosystem conventions can be worth following when they lower onboarding cost and fit the problem well.
+- Custom solutions are preferable when the trend forces awkward abstractions, unnecessary layers, or misleading terminology.
 
 ## Red Flags
 
-- An `AbstractSingletonProxyFactoryBean` pattern used where a simple function would do.
-- Test-driven design that produces many tiny, shallow classes.
-- Getter/setter pairs for every field with no real encapsulation.
-- Using design patterns as a checklist rather than in response to a real design problem.
+- Patterns are introduced before the underlying problem is named.
+- TDD, OOP, DI, or factories are defended as defaults rather than as responses to a concrete need.
+- Getters, setters, or wrappers multiply without adding meaningful behavior.
+- A trend makes interfaces or workflows more ceremonial than the domain requires.
 
 ## Examples
 
-**Bad:** Creating a `UserFactory`, `UserBuilder`, `UserValidator`, `UserMapper`, and `UserDTO` when a single `User` class with a constructor would suffice.
+**Helpful:** Using a factory where object creation truly varies at runtime and callers benefit from a stable creation contract.
 
-**Good:** Using the factory pattern only when object creation is genuinely complex and varies at runtime.
+**Backfires:** Adding multiple pattern-named layers to a simple workflow because "that is how modern apps are structured."

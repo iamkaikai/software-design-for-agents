@@ -6,28 +6,39 @@ tags: [complexity, fundamentals]
 
 ## Principle
 
-Complexity isn't caused by a single catastrophic decision. It accumulates in small increments — a special case here, an extra parameter there, a workaround somewhere else. Each one seems harmless on its own, but together they make a system hard to understand and modify.
+Complexity rarely arrives as one dramatic mistake. It accumulates through small decisions that each seem affordable in isolation.
 
 ## Why It Matters
 
-Because complexity creeps in gradually, developers stop noticing it. "It's just one more flag" becomes the rationale for hundreds of flags. The cost of each increment is tiny, but the aggregate cost is enormous. Fighting complexity requires treating every small increase as a big deal.
+If you only react to obvious disasters, you will miss the steady drift that makes systems expensive to change. Complexity compounds through added branches, flags, exceptions, and one-off accommodations.
 
-## How to Apply
+## What It Simplifies
 
-- Before adding a special case, parameter, or conditional, ask: "Is this making the system harder to understand?"
-- Resist "just this once" thinking. If a change adds complexity, find a way to absorb it or push back on the requirement.
-- When reviewing code, flag incremental complexity even if each individual instance seems small.
-- Prefer solutions that reduce or hold the line on complexity over solutions that are expedient but add to it.
+- It trains you to evaluate each local decision by its effect on the whole system.
+- It replaces "this one extra case is harmless" with "what pattern does this create if repeated?"
+- It makes design debt visible earlier, when it is still cheap to correct.
+
+## Trade-offs and Boundaries
+
+- This rule does not mean every increase in complexity is avoidable. Some complexity is required by the problem itself.
+- The goal is to reject unnecessary complexity, not to freeze the design or refuse hard requirements.
+- Applying the rule well requires judgment about whether a change is a one-time cost with clear leverage or the start of a new burden.
+- Ask for clarification when a "small" requested change introduces a new concept, mode, state, or semantic exception that may spread.
+
+## When Context Changes the Answer
+
+- A small local complication can be worth it when it buys strong simplification elsewhere, such as isolating an ugly integration detail in one place.
+- A one-off special case is less dangerous when it is fully contained, named clearly, and prevented from leaking into other interfaces.
 
 ## Red Flags
 
-- Methods or classes that have grown many parameters over time.
-- Boolean flags that toggle behavior in subtle ways.
-- Comments like "this is a special case for X" appearing frequently.
-- Code where you need to understand many conditions to trace a single path.
+- "Just this once" appears often in reviews or commit messages.
+- New boolean flags or optional parameters accumulate in stable APIs.
+- Similar edge-case checks appear in multiple callers.
+- A simple change now requires remembering several historical exceptions.
 
 ## Examples
 
-**Bad:** Adding a `isLegacy` flag to a function that changes behavior in three different places inside the function body.
+**Helpful:** Rejecting a new mode flag on a shared function and creating a clearer abstraction instead.
 
-**Good:** Creating a separate implementation for the legacy path, keeping both paths simple and independent.
+**Backfires:** Refusing any added complexity even when the domain genuinely has another required state that must be modeled explicitly.

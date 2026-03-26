@@ -6,29 +6,39 @@ tags: [comments, documentation, readability]
 
 ## Principle
 
-Comments should provide information that is not obvious from reading the code. They should describe *why*, not *what*. If a comment repeats what the code already says, it adds clutter, not value.
+Comments should carry information that code alone does not communicate clearly enough.
 
 ## Why It Matters
 
-Good comments capture information that exists in the developer's mind but cannot be expressed in the code itself: the reasoning behind a decision, the higher-level intent, non-obvious constraints, or subtle edge cases. Without these comments, future readers must reverse-engineer the intent.
+Code can show mechanics, but it often cannot fully express intent, rationale, assumptions, invariants, or surprising consequences. Good comments close that gap without duplicating what the reader can already see.
 
-## How to Apply
+## What It Simplifies
 
-- Write comments that describe **why** something is done, not **what** the code does.
-- Document non-obvious side effects, constraints, or assumptions.
-- Use interface comments (on functions, classes, modules) to describe the abstraction — what the caller needs to know, not how it's implemented.
-- Avoid comments that repeat the code: `i += 1  // increment i` adds nothing.
-- If you find yourself writing a comment to explain confusing code, consider rewriting the code to be clearer instead.
+- It reduces time spent reverse-engineering why a design exists.
+- It makes hidden assumptions and non-obvious consequences explicit.
+- It lets readers rely on higher-level guidance instead of inferring intent from implementation detail.
+
+## Trade-offs and Boundaries
+
+- Comments are not a substitute for clear code. If a comment only explains a confusing implementation, the code may still need redesign.
+- Comments add maintenance cost and can become noise when they restate visible behavior.
+- The simplification comes from shifting some understanding into prose; that only works when the prose is accurate and selective.
+- Ask for clarification when a comment is being used to justify surprising semantics, cross-module constraints, or temporary design debt that should instead be made explicit in code or interface contracts.
+
+## When Context Changes the Answer
+
+- Interface docs and rationale comments usually carry higher value than line-by-line narration.
+- Dense logic, concurrency, protocol boundaries, and unusual invariants justify more commentary than straightforward data plumbing.
 
 ## Red Flags
 
-- Comments that restate the code in English.
-- No comments at all on public interfaces.
-- Comments that describe implementation details in an interface-level docstring.
-- Stale comments that no longer match the code.
+- Comments merely translate code into English.
+- Public interfaces have no explanation of behavior or assumptions.
+- Important design decisions live only in commit history or chat.
+- Comments explain "how" in great detail but omit "why this exists."
 
 ## Examples
 
-**Bad:** `// Set the retry count to 3` above `retryCount = 3`.
+**Helpful:** Explaining that a retry limit exists because the upstream service duplicates side effects after the fourth attempt.
 
-**Good:** `// Retry up to 3 times because the payment gateway occasionally returns transient 503s during settlement windows` above `retryCount = 3`.
+**Backfires:** `// increment i` above `i++`.

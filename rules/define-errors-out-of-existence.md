@@ -6,28 +6,40 @@ tags: [complexity, error-handling, interfaces]
 
 ## Principle
 
-The best way to deal with exception handling complexity is to define your APIs so that errors can't happen in the first place. Redefine semantics so that the "error" case is handled as part of normal operation.
+Where it is honest to do so, redefine operations so common "error" cases become part of normal semantics instead of spawning scattered exception-handling branches.
 
 ## Why It Matters
 
-Exception handling is one of the worst sources of complexity. Every exception introduces a code path that is hard to test and easy to get wrong. By redefining operations to absorb would-be error conditions, you eliminate entire categories of complexity.
+Exception-heavy APIs force every caller to understand and defend against many alternate flows. In many cases that complexity is more dangerous than the condition itself.
 
-## How to Apply
+## What It Simplifies
 
-- Instead of throwing an error when a caller tries to delete something that doesn't exist, make the operation a no-op (idempotent).
-- Instead of requiring callers to check a precondition before calling, handle the edge case inside the function.
-- Use "define away" semantics: if a `substring(start, end)` receives out-of-range indices, clip them to the valid range rather than throwing.
-- Reserve exceptions for truly exceptional conditions that the caller must know about and can't be handled internally.
+- It replaces branch-heavy control-flow knowledge with simpler semantic knowledge.
+- It reduces duplicated caller-side checks such as "exists before delete" or "clip range before slice."
+- It makes common operations easier to reason about by centering on postconditions instead of failure choreography.
+
+## Trade-offs and Boundaries
+
+- The goal is not to remove understanding. The goal is to replace scattered exceptional-branch knowledge with simpler, more local, more predictable semantic knowledge.
+- This only helps when the new semantics are natural, predictable, and easy for callers to carry in their heads.
+- Important distinctions must stay visible. Do not hide failures, absences, or costs that callers need in order to behave correctly.
+- Make common cases non-exceptional, but do not make important distinctions invisible.
+- Ask for clarification when redefining behavior would collapse meanings such as missing vs empty, absent vs failed, retriable vs permanent, or idempotent vs duplicate-sensitive.
+
+## When Context Changes the Answer
+
+- Defining an error away works well when callers mostly care about the postcondition, such as "after this call, the item does not exist."
+- Exposing the distinction is better when callers must react differently to the underlying causes, such as "not found" versus "backend unavailable."
 
 ## Red Flags
 
-- APIs that throw exceptions for common, foreseeable situations.
-- Callers that must call a `canDoX()` check before calling `doX()`.
-- Try/catch blocks appearing around almost every call to a module.
-- Error-handling code that is longer than the normal-path code.
+- Errors are silently swallowed with no way to distinguish real failure from benign absence.
+- Callers now need tribal knowledge to predict what "success" means.
+- The new semantics make observability or debugging materially worse.
+- The interface returns empty values where the distinction between empty and missing is part of the business meaning.
 
 ## Examples
 
-**Bad:** `array.get(index)` throws `IndexOutOfBoundsException` — every caller needs a bounds check or try/catch.
+**Helpful:** `delete(id)` means "ensure this item no longer exists," even if it was already absent.
 
-**Good:** `map.getOrDefault(key, fallback)` — the missing-key case is handled by returning the default, no exception needed.
+**Backfires:** `readConfig()` treating an unreadable file the same as an intentionally empty configuration.

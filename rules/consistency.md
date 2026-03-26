@@ -6,29 +6,39 @@ tags: [readability, conventions, maintenance]
 
 ## Principle
 
-Consistency reduces cognitive load. When similar things are done in similar ways throughout a system, developers can understand new code faster by recognizing familiar patterns. Inconsistency forces readers to re-learn patterns for each new piece of code.
+Use the same patterns, names, and expectations for the same concepts so readers can reuse what they already know.
 
 ## Why It Matters
 
-Consistency creates leverage: once you learn a convention, it applies everywhere. Inconsistency means every new file, function, or module is a learning experience. Over time, inconsistency compounds into significant confusion and wasted effort.
+Consistency reduces the amount of new information a reader must learn. Once one instance is understood, similar cases become cheaper to understand and change.
 
-## How to Apply
+## What It Simplifies
 
-- Follow existing patterns and conventions in the codebase, even if you'd personally prefer a different approach.
-- Use the same name for the same concept everywhere. Don't call it `user` in one place and `account` in another if they mean the same thing.
-- Structure similar modules similarly — if all controllers follow a pattern, new controllers should follow it too.
-- When you establish a new pattern, document it so others follow it.
-- If a convention is truly wrong, change it everywhere — don't create a second competing convention.
+- It lowers cognitive load by letting readers rely on precedent.
+- It makes review faster because deviations stand out.
+- It reduces accidental variation in semantics, naming, and operational behavior.
+
+## Trade-offs and Boundaries
+
+- Consistency is a tool, not a reason to preserve a bad design forever.
+- Blindly copying an existing pattern spreads defects just as efficiently as it spreads clarity.
+- The simplification comes from reusing expectations; if the old expectation is wrong for the new problem, consistency may hide a needed distinction.
+- Ask for clarification when matching an existing convention would preserve misleading semantics, the wrong abstraction, or an already harmful API shape.
+
+## When Context Changes the Answer
+
+- Prefer existing conventions when they are already clear and adequate.
+- Break convention deliberately when the current pattern is materially wrong, but do it consistently and broadly enough that the system ends up clearer, not split between rival styles.
 
 ## Red Flags
 
-- Two modules that solve similar problems in completely different ways.
-- Variable names that change meaning across files (e.g., `id` means user ID in one file and order ID in another).
-- Mixed formatting styles, error-handling approaches, or API patterns in the same codebase.
-- "New style" code living alongside "old style" code indefinitely.
+- The same concept is represented with different names or return shapes.
+- Similar operations have subtly different error or lifecycle semantics.
+- "New style" and "old style" coexist indefinitely without a migration plan.
+- Review feedback appeals to consistency even when the underlying design is flawed.
 
 ## Examples
 
-**Bad:** Half the API endpoints return `{ data: ... }` and the other half return `{ result: ... }` — callers must check which format each endpoint uses.
+**Helpful:** Making similar domain operations return the same status model and naming scheme.
 
-**Good:** All API endpoints return `{ data: ... }` uniformly. A migration updates the old ones.
+**Backfires:** Preserving a bad getter/setter-heavy API just because "that is how the codebase does it."

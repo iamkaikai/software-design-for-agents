@@ -6,29 +6,39 @@ tags: [naming, readability]
 
 ## Principle
 
-Names are a form of abstraction. A good name conveys the essential nature of a thing precisely and concisely. Vague, generic, or misleading names force readers to look at the implementation to understand what something does.
+Names are part of the design. They should communicate the most important distinctions a reader needs in order to reason correctly about the code.
 
 ## Why It Matters
 
-Names are read far more often than they are written. A poor name creates a false mental model that leads to bugs. A good name reduces cognitive load by communicating exactly what something is or does.
+Readers build mental models through names before they inspect implementations. A vague or misleading name creates false understanding, which is often worse than no understanding.
 
-## How to Apply
+## What It Simplifies
 
-- Names should be precise: `getCount` is vague, `getActiveUserCount` is clear.
-- Avoid generic names like `data`, `result`, `info`, `manager`, `handler`, `process` unless the scope is very narrow.
-- Use consistent naming conventions across the codebase.
-- If you can't find a good name, it may be a sign that the thing's purpose isn't well-defined — reconsider the design.
-- Name length should be proportional to scope: short names for loop variables, descriptive names for module-level functions.
+- It reduces the need to inspect implementation to learn purpose.
+- It makes interfaces more obvious and lowers cognitive load in reviews.
+- It shifts understanding from code archaeology to direct recognition.
+
+## Trade-offs and Boundaries
+
+- Precision matters more than brevity, but names should still fit their scope and frequency of use.
+- Long names do not automatically help if they mix multiple concepts or encode too much incidental detail.
+- Naming cannot rescue a confused abstraction; sometimes the hard part is not the word choice but the design boundary itself.
+- Ask for clarification when two plausible names imply different semantics, lifecycles, or ownership models and the underlying concept is not yet settled.
+
+## When Context Changes the Answer
+
+- Local short names are fine when the scope is tiny and the role is obvious.
+- Module, API, and domain names need much stronger precision because they shape many readers' mental models.
 
 ## Red Flags
 
-- Variables named `tmp`, `data`, `result`, `val` with wide scope.
-- Functions named `processData()` or `handleRequest()` that give no hint of what processing or handling means.
-- Names that are misleading — e.g., a function called `getUser()` that also modifies state.
-- Inconsistent naming: `fetchUser` in one place, `loadUser` in another, for the same operation.
+- Generic names like `data`, `manager`, `helper`, or `process` in wide scope.
+- The same concept has different names in different modules.
+- A name implies retrieval but the function mutates state.
+- Developers repeatedly ask "what does this actually mean here?"
 
 ## Examples
 
-**Bad:** `def process(d)` — says nothing about what it processes or what `d` is.
+**Helpful:** `activeSubscriptionCount` instead of `count`.
 
-**Good:** `def calculateMonthlyRevenue(transactions)` — the name tells you both the input and the output.
+**Backfires:** `customerWithValidatedBillingAddressEligibleForRenewal` when the code still has no clear abstraction for that state.

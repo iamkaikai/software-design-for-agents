@@ -6,28 +6,39 @@ tags: [mindset, complexity, design]
 
 ## Principle
 
-A tactical programmer focuses on getting features working as quickly as possible. A strategic programmer invests time in good design, knowing that a clean structure pays off over time. Working code is not enough — the code must also have a clean design.
+Do not optimize only for getting today's code to work. Invest enough in structure that tomorrow's changes are cheaper and safer.
 
 ## Why It Matters
 
-Tactical programming accumulates complexity rapidly. Each shortcut makes the next change harder. Strategic programming treats every code change as an opportunity to improve the system's design, not just ship a feature.
+Tactical coding ships local behavior quickly but often leaves behind fragile seams, duplicated logic, and awkward interfaces. Strategic design spends more thought up front so the system does not degrade with each change.
 
-## How to Apply
+## What It Simplifies
 
-- When implementing a feature, spend a small amount of extra time (10–20%) finding a clean design rather than the fastest path.
-- If the cleanest implementation requires refactoring existing code, do the refactoring — don't layer new code on top of a bad structure.
-- Don't introduce technical debt intentionally. "We'll fix it later" almost never happens.
-- Every change to the system should leave the design at least as clean as it was before, ideally cleaner.
+- It reduces repeated rework caused by shortcuts that have to be revisited later.
+- It shifts effort from patching around yesterday's decisions to designing cleaner abstractions today.
+- It turns implementation into cumulative improvement instead of cumulative damage.
+
+## Trade-offs and Boundaries
+
+- Strategic work is not a license for overdesign. You are buying future simplicity, not architecture theater.
+- You still need to ship. The question is how much design work is justified by the likely lifetime and reuse of the code.
+- The cost moves from immediate typing speed to deliberate design time; that trade is only good when it lowers future change cost.
+- Ask for clarification when a request pressures you toward a shortcut that changes long-lived interfaces, duplicates logic, or entrenches a known bad abstraction.
+
+## When Context Changes the Answer
+
+- Short-lived experiments, throwaway migrations, and isolated prototypes justify less design investment than shared infrastructure.
+- Mature code paths with frequent changes justify more strategic work than rarely touched leaf code.
 
 ## Red Flags
 
-- PRs that are described as "quick fix" or "hack" with a TODO to clean up later.
-- Duplicated logic introduced to avoid modifying an existing abstraction.
-- Pattern of shipping fast and immediately needing follow-up bug fixes.
-- Developers afraid to modify existing code because it's fragile.
+- "Quick fix" becomes a recurring label for permanent code.
+- Follow-up bugs appear because the first patch forced the change into the wrong place.
+- Developers avoid touching a module because earlier shortcuts made it brittle.
+- Similar logic is copied to avoid refactoring an existing abstraction.
 
 ## Examples
 
-**Bad:** Copy-pasting a function and modifying the copy, because changing the original feels risky.
+**Helpful:** Refactoring a shared parsing module before adding a new format instead of adding one more special branch.
 
-**Good:** Refactoring the original function to be general-purpose enough to handle both use cases.
+**Backfires:** Building an elaborate extension framework for a path that may never be reused.
