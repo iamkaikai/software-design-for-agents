@@ -38,7 +38,7 @@ Carry repeatable complexity inside the module when the resulting semantics stay 
 Split or join code based on overall complexity, not on blanket rules about size.
 
 ### 9. Define Errors Out of Existence
-Replace scattered exception-handling branches with simpler semantics only when important distinctions remain visible.
+Make errors structurally impossible (types, constraints, schemas) or redefine operations so common errors become normal semantics. Prefer structural prevention over semantic redefinition over procedural guard clauses.
 
 ### 10. Design It Twice
 Compare alternatives before fixing an interface or decomposition.
