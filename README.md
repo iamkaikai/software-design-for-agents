@@ -21,40 +21,16 @@ AI coding agents can produce working code quickly, but working code is not enoug
 
 ## Quick Start
 
-### Option A: New project
-
-```bash
-git clone https://github.com/YOUR_USERNAME/software-design-for-agents.git my-project
-cd my-project
-
-cp examples/CLAUDE.md ./CLAUDE.md
-cp examples/AGENTS.md ./AGENTS.md
-cp examples/GEMINI.md ./GEMINI.md
-```
-
-Keep the file your agent needs in the project root, or keep several if you use multiple agents.
-
-### Option B: Existing project
-
-```bash
-curl -O https://raw.githubusercontent.com/YOUR_USERNAME/software-design-for-agents/main/examples/AGENTS.md
-```
-
-Or copy the contents of the file you need from `examples/`.
-
-### Option C: Full rule set
-
-If you want the detailed rule files and task profiles:
+Copy the `rules/` and `profiles/` directories into your project, then reference them from your agent config:
 
 ```bash
 cp -r rules/ /path/to/your-project/rules/
 cp -r profiles/ /path/to/your-project/profiles/
 ```
 
-Then reference them from your agent config. Example:
-
 ```markdown
 Follow the software design rules in `rules/`.
+Before planning, read `profiles/plan.md`.
 Before writing code, read `profiles/implement.md`.
 Before reviewing code, read `profiles/review.md`.
 ```
@@ -67,8 +43,7 @@ rules/              # 20 book-derived rules + 8 supplemental architecture rules
   _coverage.md      # Chapter 1-21 coverage map
   ...
 
-profiles/           # Task-specific rule subsets
-examples/           # Synced agent-facing summaries
+profiles/           # Task-specific rule subsets (plan, implement, review, refactor, debug)
 source/             # Book source text used for coverage and refinement
 ```
 
@@ -115,19 +90,6 @@ Current supplemental mistake patterns:
 7. Mistaking Shared Data for Harmless Convenience
 8. Treating Operability as Cleanup Work
 
-## Platform Guide
-
-| Platform | File to use | Where to put it |
-|----------|-------------|-----------------|
-| Claude Code | `examples/CLAUDE.md` | Project root as `CLAUDE.md` |
-| OpenAI Codex | `examples/AGENTS.md` | Project root as `AGENTS.md` |
-| Gemini CLI | `examples/GEMINI.md` | Project root as `GEMINI.md` |
-| Cursor | `examples/AGENTS.md` | Project root as `AGENTS.md` |
-| Aider | `examples/AGENTS.md` | Project root as `AGENTS.md` |
-| Other agents | `examples/AGENTS.md` | `AGENTS.md` is the best default |
-
-The three example files contain identical content. Only the filename changes.
-
 ## How To Read The Rules
 
 Each rule file is intentionally structured around trade-offs:
@@ -154,7 +116,6 @@ When adding or revising rules:
 2. Each rule file should preserve the shared section structure.
 3. Update `rules/_index.md` and `rules/_coverage.md`.
 4. Update relevant `profiles/`.
-5. Keep all three files in `examples/` in sync.
 
 ## License
 

@@ -2,12 +2,12 @@
 
 This file maps Chapters 1-21 of *A Philosophy of Software Design* to the rule set in this repo.
 
-Chapter 1 is intentionally represented as project framing in [README.md](../README.md) and the synced files in `examples/`, not as a numbered rule file.
+Chapter 1 is intentionally represented as project framing in [README.md](../README.md), not as a numbered rule file.
 
 
 | Chapter | Theme                                                | Representation in This Repo                                                          | Coverage Type |
 | ------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------- |
-| 1       | How to use the book / design framing                 | [README.md](../README.md), `examples/*.md`                                           | Framing       |
+| 1       | How to use the book / design framing                 | [README.md](../README.md)                                                            | Framing       |
 | 2       | Complexity and its symptoms                          | [complexity-is-incremental.md](complexity-is-incremental.md)                         | Explicit      |
 | 3       | Tactical vs strategic programming                    | [tactical-vs-strategic.md](tactical-vs-strategic.md)                                 | Explicit      |
 | 4       | Deep modules                                         | [deep-modules.md](deep-modules.md)                                                   | Explicit      |

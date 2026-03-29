@@ -20,15 +20,10 @@ The first idea is often shaped by habit, local context, or the current call site
 
 ## Trade-offs and Boundaries
 
-- You do not need a formal design exercise for every tiny helper. Apply this where the interface, decomposition, or long-term shape matters.
+- Shared modules, public interfaces, and structural refactors benefit most from explicit comparison. Tiny internal changes may only need a quick mental alternative rather than written design work.
 - The cost is more up-front thinking and occasional discarded sketches.
 - The benefit comes from comparison, not from generating many options for its own sake.
 - Clarify the priorities when a design choice has multiple plausible meanings or boundaries and the caller's actual priorities are not yet explicit.
-
-## When Context Changes the Answer
-
-- Shared modules, public interfaces, and structural refactors benefit most from explicit comparison.
-- Tiny internal changes may only need a quick mental alternative rather than written design work.
 
 ## Red Flags
 
