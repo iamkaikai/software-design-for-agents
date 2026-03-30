@@ -14,8 +14,8 @@ Good abstractions depend on more than signatures and control flow. Without comme
 
 ## What It Simplifies
 
-- It reduces unknown unknowns by stating what matters about a module or interface.
-- It lowers cognitive load because readers do not need to infer everything from code alone.
+- It reduces cognitive load because readers do not need to infer intent, rationale, or constraints from code alone.
+- It eliminates unknown unknowns by stating what matters about a module or interface — assumptions, invariants, and surprising consequences that readers would otherwise never think to look for.
 - It completes abstractions by capturing the parts of a contract that code cannot express well.
 
 ## Trade-offs and Boundaries

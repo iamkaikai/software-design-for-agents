@@ -14,8 +14,8 @@ Code can show mechanics, but it often cannot fully express intent, rationale, as
 
 ## What It Simplifies
 
-- It reduces time spent reverse-engineering why a design exists.
-- It makes hidden assumptions and non-obvious consequences explicit.
+- It reduces cognitive load by letting readers understand intent without reverse-engineering the implementation.
+- It eliminates unknown unknowns by making hidden assumptions, invariants, and non-obvious consequences explicit — things readers would not know to look for.
 - It lets readers rely on higher-level guidance instead of inferring intent from implementation detail.
 
 ## Trade-offs and Boundaries
